@@ -11,8 +11,11 @@ RUN npm install
 # Copy source code
 COPY . .
 
-# Expose Vite's development server port
-EXPOSE 5173
+# Generate Prisma client
+RUN npx prisma generate
 
-# Start React app in development mode
-CMD ["npm", "run", "dev"]
+# Expose backend port
+EXPOSE 5000
+
+# Start Hapi.js server
+CMD ["npm", "run", "start"]

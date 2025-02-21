@@ -1,0 +1,103 @@
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: postgres_db
+    restart: always
+    environment:
+      POSTGRES_USER: myuser
+      POSTGRES_PASSWORD: mypassword
+      POSTGRES_DB: mydatabase
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    ports:
+      - "5432:5432"
+
+  backend:
+    build: ./hapi-backend
+    container_name: hapi_backend
+    restart: always
+    depends_on:
+      - postgres
+    env_file:
+      - .env 
+    ports:
+      - "5000:5000"
+    volumes:
+      - ./hapi-backend:/app
+      - /app/node_modules
+
+  frontend:
+    build: ./react-frontend
+    container_name: react_frontend
+    restart: always
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://localhost:5000  # Update API URL for frontend
+    ports:
+      - "5173:5173"  # Expose Vite's development server
+    volumes:
+      - ./react-frontend:/app
+      - /app/node_modules
+    command: ["npm", "run", "dev", "--", "--host"] 
+volumes:
+  postgres_data:
+
+
+
+
+
+
+
+
+# with nginx server
+# version: '3.8'
+
+# services:
+#   nginx:
+#     build: ./nginx
+#     container_name: nginx_proxy
+#     restart: always
+#     depends_on:
+#       - frontend
+#       - backend
+#     ports:
+#       - "80:80"
+
+#   postgres:
+#     image: postgres:15-alpine
+#     container_name: postgres_db
+#     restart: always
+#     environment:
+#       POSTGRES_USER: myuser
+#       POSTGRES_PASSWORD: mypassword
+#       POSTGRES_DB: mydatabase
+#     volumes:
+#       - postgres_data:/var/lib/postgresql/data
+#     ports:
+#       - "5432:5432"
+
+#   backend:
+#     build: ./auth-hapi-backend
+#     container_name: hapi_backend
+#     restart: always
+#     depends_on:
+#       - postgres
+#     env_file:
+#     - .env 
+#     volumes:
+#       - ./hapi-backend:/app
+#       - /app/node_modules
+
+#   frontend:
+#     build: ./react-frontend
+#     container_name: react_frontend
+#     restart: always
+#     depends_on:
+#       - backend
+#     volumes:
+#       - ./react-frontend:/app
+#       - /app/node_modules
+
+# volumes:
+#   postgres_data:

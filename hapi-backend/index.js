@@ -54,6 +54,7 @@ const init = async () => {
                 });
                 return h.response({ message: 'User registered successfully!!!' }).code(201);
             } catch (error) {
+                console.log(error);
                 return h.response({ messgae: "User Registration failed in server side!!!" }).code(500);
             }
         }

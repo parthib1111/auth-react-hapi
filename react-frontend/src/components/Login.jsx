@@ -1,7 +1,10 @@
 import { Button, Container, TextField, Typography } from '@mui/material'
 import { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom'
-import axiosInstance from '../services/axiosInstance';
+// import axiosInstance from '../services/axiosInstance';
+import useAxios from '../services/axiosInstance';
+import { useDispatch } from 'react-redux';
+import { login } from "../redux/features/authSlice";
 import { Bounce, toast, ToastContainer } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 
@@ -9,19 +12,23 @@ const Login = () => {
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const navigate = useNavigate();
-
+    const dispatch = useDispatch();
+    const axiosInstance = useAxios();
     // const notify = () => toast.success("Login successful!!!");
 
     const handleLogin = async (e) => {
+
         e.preventDefault();
         try {
             // const res = await axios.post("http://localhost:5000/login", { email, password });
             const res = await axiosInstance.post("/login", { email, password });
+            const tokens = res.data.tokens;
+            dispatch(login(tokens));
             console.log(res);
-            console.log(res.data.tokens.accessToken);
-            console.log(res.data.tokens.refreshToken);
-            localStorage.setItem("accessToken", res.data.tokens.accessToken);
-            localStorage.setItem("refreshToken", res.data.tokens.refreshToken);
+            // console.log(res.data.tokens.accessToken);
+            // console.log(res.data.tokens.refreshToken);
+            // localStorage.setItem("accessToken", res.data.tokens.accessToken);
+            // localStorage.setItem("refreshToken", res.data.tokens.refreshToken);
             toast.success('Login successful!', {
                 position: "top-right",
                 autoClose: 5000,

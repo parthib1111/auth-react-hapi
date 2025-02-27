@@ -1,13 +1,18 @@
 import { Button, Container, Typography } from "@mui/material";
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import axiosInstance from "../services/axiosInstance";
+// import axiosInstance from "../services/axiosInstance";
+import { useDispatch } from "react-redux"
 import { Bounce, toast, ToastContainer } from "react-toastify";
+import { logout } from "../redux/features/authSlice";
+import useAxios from "../services/axiosInstance";
 
 
 const Dashboard = () => {
     const [user, setUser] = useState(null);
     const navigate = useNavigate();
+    const dispatch = useDispatch();
+    const axiosInstance = useAxios();
 
     // const notify = () => toast.success("Logout successful!!!");
 
@@ -33,8 +38,9 @@ const Dashboard = () => {
     const handleLogout = async (e) => {
         try {
             e.preventDefault();
-            localStorage.removeItem("accessToken");
-            localStorage.removeItem("refreshToken");
+            // localStorage.removeItem("accessToken");
+            // localStorage.removeItem("refreshToken");
+            dispatch(logout());
             toast.success('Logout successful!', {
                 position: "top-right",
                 autoClose: 5000,
@@ -71,7 +77,7 @@ const Dashboard = () => {
                 <Typography variant="h4">Dashboard</Typography>
                 {user ? (
                     <>
-                        <Typography variant="body1">Welcome, {user.email}!</Typography>
+                        <Typography variant="body1">Welcome, {user.name}!</Typography>
                         <Button variant="contained" color="secondary" onClick={handleLogout} sx={{ mt: 2 }}>
                             Logout
                         </Button>

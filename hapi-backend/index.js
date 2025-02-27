@@ -34,8 +34,8 @@ const init = async () => {
         path: '/register',
         handler: async (request, h) => {
             try {
-                // console.log(request.payload);
-                const { email, password } = request.payload;
+                console.log(request.payload);
+                const { name, email, password } = request.payload;
                 // console.log(email);
                 // console.log(password);
 
@@ -48,6 +48,7 @@ const init = async () => {
 
                 await prisma.user.create({
                     data: {
+                        name: name,
                         email: email,
                         password: password
                     }

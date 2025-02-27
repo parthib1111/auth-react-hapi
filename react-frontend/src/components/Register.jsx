@@ -1,12 +1,8 @@
 import { Button, Container, TextField, Typography } from "@mui/material"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
-<<<<<<< HEAD
-// import axiosInstance from "../services/axiosInstance";
 import useAxios from "../services/axiosInstance";
-=======
-import axiosInstance from "../services/axiosInstance";
->>>>>>> 362d2c67e81074c9ca9d5ee8a24534562be3d22b
+
 import { Bounce, toast, ToastContainer } from "react-toastify";
 
 
@@ -21,11 +17,7 @@ const Register = () => {
 
     const handleRegister = async () => {
         try {
-<<<<<<< HEAD
             await axiosInstance.post("/register", { name, email, password });
-=======
-            await axiosInstance.post("/register", { email, password });
->>>>>>> 362d2c67e81074c9ca9d5ee8a24534562be3d22b
             toast.success('Registration successful!!', {
                 position: "top-right",
                 autoClose: 5000,

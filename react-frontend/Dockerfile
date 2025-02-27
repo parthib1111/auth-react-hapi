@@ -14,5 +14,9 @@ COPY . .
 # Expose Vite's development server port
 EXPOSE 5173
 
+# Set environment variable for the API URL to backend
+# Replace this with the proper backend container name
+ENV VITE_API_URL="http://backend:5000"
+
 # Start React app in development mode
 CMD ["npm", "run", "dev"]

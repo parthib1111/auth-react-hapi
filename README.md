@@ -1,1 +1,1 @@
-"# auth-react-hapi" 
+# auth-react-hapi

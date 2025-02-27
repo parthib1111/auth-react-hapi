@@ -14,7 +14,7 @@ export const getUserDashboard = async (token) => {
         }
         return { message: "Welcome to the dashboard from server side!!!", user };
     } catch (error) {
-        console.log("Error in userService server side!!!", error);
+        // console.log("Error in userService server side!!!", error);
         return null;
     }
 }

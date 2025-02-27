@@ -2,7 +2,7 @@ import { Button, Container, TextField, Typography } from "@mui/material"
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom"
 import axiosInstance from "../services/axiosInstance";
-// import { Bounce, toast, ToastContainer } from "react-toastify";
+import { Bounce, toast, ToastContainer } from "react-toastify";
 
 
 const Register = () => {
@@ -14,33 +14,33 @@ const Register = () => {
     const handleRegister = async () => {
         try {
             await axiosInstance.post("/register", { email, password });
-            // toast.success('Registration successful!!', {
-            //     position: "top-right",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: false,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            //     theme: "colored",
-            //     transition: Bounce,
-            // });
+            toast.success('Registration successful!!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
             setTimeout(() => {
                 navigate("/login", { replace: true });
             }, 1000);
         } catch (error) {
             console.log("Registration failed!!!", error);
-            // toast.error('Registration not successful!!', {
-            //     position: "top-right",
-            //     autoClose: 5000,
-            //     hideProgressBar: false,
-            //     closeOnClick: false,
-            //     pauseOnHover: true,
-            //     draggable: true,
-            //     progress: undefined,
-            // theme: "colored",
-            //     transition: Bounce,
-            // });
+            toast.error('Registration not successful!!', {
+                position: "top-right",
+                autoClose: 5000,
+                hideProgressBar: false,
+                closeOnClick: false,
+                pauseOnHover: true,
+                draggable: true,
+                progress: undefined,
+                theme: "colored",
+                transition: Bounce,
+            });
         }
 
 
@@ -58,6 +58,7 @@ const Register = () => {
                     {" "}first.
                 </Typography>
             </Container>
+            <ToastContainer />
         </>
     )
 }
